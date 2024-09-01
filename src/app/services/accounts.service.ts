@@ -37,4 +37,8 @@ export class AccountsService {
     return this.client.post('http://localhost/Clinic2104API/api/Accounts/Login',user)
   }
 
+  GetUserRoles(username:string):Observable<any>{
+    return this.client.get('http://localhost/Clinic2104API/api/Accounts/GetUserRoles?username='+username)
+  }
+
 }

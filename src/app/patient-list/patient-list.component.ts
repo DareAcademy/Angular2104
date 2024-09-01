@@ -9,14 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./patient-list.component.css']
 })
 export class PatientListComponent {
-  patientPhone!:string
+  patientPhone:string=''
+  patientName:string=''
   patients!:PatientDTO[]
 
   constructor(private patientService:PatientService,
               private router:Router){}
 
   search(){
-    this.patientService.Search(this.patientPhone).subscribe({
+    debugger
+    this.patientService.Search(this.patientPhone,this.patientName).subscribe({
       next:data=>{
       debugger
       this.patients=data     

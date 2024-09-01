@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { CountryDTO } from '../Model/CountryDTO';
 import { CountryService } from '../services/countryservice';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-new-country',
   templateUrl: './new-country.component.html',
@@ -28,18 +28,40 @@ save(){
   let country=new CountryDTO()
   country.name=this.countryForm.value['txtName']
 
-  this.countryService.Insert(country).subscribe({
+
+    this.countryService.LoadByName(this.countryForm.value['txtName']).subscribe({
+      next:data=>{
+
+        debugger
+        if(data ==null){
+        this.countryService.Insert(country).subscribe({
     
-    next:data=>{
-      debugger
-      console.log("success")
-    },
-    error:err=>{
-      debugger
-      console.log("error happned")
-    }
-    
-  })
+          next:data=>{
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+          
+        })
+      }
+      else
+      {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "country already exists"
+        });      
+      }
+      }
+
+    })
+
+
+
 }
 }
 

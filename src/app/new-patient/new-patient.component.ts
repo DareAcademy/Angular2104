@@ -37,8 +37,8 @@ ngOnInit(): void {
     txtFName:['',Validators.required],
     txtLName:['',Validators.required],
     txtDOB:['',Validators.required],
-    //txtPhone:['',Validators.compose([Validators.required,Validators.pattern('07(7|8|9)\d{7}')])],
-    txtPhone:['',Validators.required],
+    txtPhone:['',Validators.compose([Validators.required,Validators.pattern('07(7|8|9)\\d{7}')])],
+    // txtPhone:['',Validators.required],
     txtEmail:[''],
     ddlcountry:['',Validators.required]
     

@@ -20,10 +20,9 @@ export class UserListComponent implements OnInit {
       },
       error:err=>console.log(err)
     })
-
   }
 
   onGetUserRole(userId:string){
-    this.router.navigate(['/UserRoles'],{queryParams:{Id:userId}})
+    this.router.navigate(['/clinic/UserRoles'],{queryParams:{Id:userId}})
   }
 }

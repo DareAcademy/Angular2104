@@ -8,13 +8,17 @@ import { CountryListComponent } from './country-list/country-list.component';
 import { NewPatientComponent } from './new-patient/new-patient.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import { CountryService } from './services/countryservice';
 import { AddUsersComponent } from './add-users/add-users.component';
 import { NewRoleComponent } from './new-role/new-role.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserRolesComponent } from './user-roles/user-roles.component';
 import { LoginComponent } from './login/login.component';
+import { AuthenticationInterceptor } from './Interceptors/authentication.interceptor';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
+import { ErrorhandlingInterceptor } from './Interceptors/errorhandling.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,9 @@ import { LoginComponent } from './login/login.component';
     NewRoleComponent,
     UserListComponent,
     UserRolesComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +42,10 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [CountryService],
+  providers: [CountryService,
+    {provide:HTTP_INTERCEPTORS,useClass:AuthenticationInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:ErrorhandlingInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

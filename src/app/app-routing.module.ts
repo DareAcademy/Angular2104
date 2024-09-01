@@ -9,17 +9,23 @@ import { NewRoleComponent } from './new-role/new-role.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserRolesComponent } from './user-roles/user-roles.component';
 import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  {path:'NewPatient',component:NewPatientComponent},
-  {path:'PatientList',component:PatientListComponent},
-  {path:'NewCountry',component:NewCountryComponent},
-  {path:'CountryList',component:CountryListComponent},
-  {path:'NewUser',component:AddUsersComponent},
-  {path:'NewRole',component:NewRoleComponent},
-  {path:'UserList',component:UserListComponent},
-  {path:'UserRoles',component:UserRolesComponent},
-  {path:'Login',component:LoginComponent},
+  
+  {path:'',component:LoginComponent},
+  {path:'clinic',component:HomeComponent,children:[
+    {path:'NewPatient',component:NewPatientComponent},
+    {path:'PatientList',component:PatientListComponent},
+    {path:'NewCountry',component:NewCountryComponent},
+    {path:'CountryList',component:CountryListComponent},
+    {path:'NewUser',component:AddUsersComponent},
+    {path:'NewRole',component:NewRoleComponent},
+    {path:'UserList',component:UserListComponent},
+    {path:'UserRoles',component:UserRolesComponent},
+    {path:'dashboard',component:DashboardComponent}
+  ]}
 ];
 
 @NgModule({

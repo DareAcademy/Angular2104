@@ -13,10 +13,13 @@ export class CountryService{
     }
 
     LoadAll():Observable<any>{
-      return this.client.get('http://localhost/Clinic2104API/api/Country')
+      return this.client.get('http://localhost/Clinic2104API/api/Country/CountryList')
     }
 
     delete(id:number):Observable<any>{
       return  this.client.delete('http://localhost/Clinic2104API/api/Country?Id='+id)
+    }
+    LoadByName(name:string){
+      return this.client.get('http://localhost/Clinic2104API/api/Country/LoadByName?name='+name)
     }
 }

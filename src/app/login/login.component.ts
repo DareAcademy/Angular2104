@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(){
+    debugger
     var user=new SignIn();
     user.username=this.LoginForm.value["txtUsername"]
     user.password=this.LoginForm.value["txtPassword"]
@@ -31,7 +32,19 @@ export class LoginComponent implements OnInit {
       next:data=>{
         debugger
         localStorage.setItem("SecurityKey",data.token)
-        this.router.navigate(['/PatientList'])
+        this.accountService.GetUserRoles(this.LoginForm.value["txtUsername"]).subscribe({
+          next:data=>{
+            debugger
+            localStorage.setItem("Roles",data)
+            this.router.navigate(['/clinic/dashboard'])
+          },
+          error:err=>{
+            console.log("Error")
+          }
+
+
+        })
+        
       },
       error:err=>console.log(err)
     })

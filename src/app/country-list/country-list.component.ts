@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from '../services/countryservice';
 import { CountryDTO } from '../Model/CountryDTO';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-country-list',
   templateUrl: './country-list.component.html',
@@ -17,17 +17,34 @@ export class CountryListComponent implements OnInit {
 
   delete(id:number){
     debugger
-    this.countryService.delete(id).subscribe({
-      next:()=>{
-        debugger
-        this.loadAll()
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.countryService.delete(id).subscribe({
+          next:()=>{
+            debugger
+            this.loadAll()
+    
+            
+          }
+        })
 
-        
-      },
-      error:err=>{
-        console.log("error")
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
       }
-    })
+    });
+
+    
   }
 
   loadAll(){
@@ -35,9 +52,6 @@ export class CountryListComponent implements OnInit {
       next:data=>{
         debugger
         this.countries=data
-      },
-      error:err=>{
-        console.log("error")
       }
     })
   }
